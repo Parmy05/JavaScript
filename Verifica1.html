@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifica es1</title>
+    <style>
+        table, td {
+          border: 1px solid black;
+        }
+        </style>
+</head>
+<body>
+    <table id="tabella">
+        <tr>
+          <td>Codice Cliente</td>
+          <td><input type="text" id="codiceCliente"></td>
+        </tr>
+        <tr>
+           <td>Kw/h consumati</td>
+           <td><input type="text" id="Consumo" ></td>
+          </tr>
+          <tr>
+            <td>Costo Kw/h</td>
+            <td><input type="text" id="Iva" placeholder="0.03"></td>
+           </tr>
+           <tr>
+            <td>Iva</td>
+            <td><input type="text" id="CostoKw" placeholder="22"></td>
+           </tr>
+           <tr>
+            <td>Canone</td>
+            <td><input type="text" id="Canone" placeholder="20"></td>
+           </tr>
+           <tr>
+            <td><button onclick="Inserisci()">Inserisci</button></td>
+            <td><button onclick="calcola()">calcola</button></td>
+           </tr>
+      </table>
+    <script>
+        function Inserisci(){
+        
+        }
+        function calcola(){
+            let codice=document.getElementById("codiceCliente").value;
+            let consumo=parseInt(document.getElementById("Consumo").value);
+            let iva=parseFloat(document.getElementById("Iva").value);
+            let costo=parseFloat(document.getElementById("CostoKw").value);
+            let canone=parseFloat(document.getElementById("Canone").value);
+        
+            if(consumo<0)
+            alert("valore non corretto");
+            else if(iva<0)
+            alert("valore non corretto");
+            else if(costo<0)
+            alert("valore non corretto");
+            else if(canone<0)
+            alert("valore non corretto");
+            else if(codice=="")
+            alert("valore non corretto");
+
+            else{
+        
+            let TotaleCons=consumo*costo;
+            let TotaleIva=TotaleCons*iva;
+            let Totale=TotaleCons+canone+TotaleIva;
+            let tabella=document.getElementById("tabella");
+            let tbody=tabella.children[1];
+            const tr=document.createElement("tr");
+            let td=document.createElement("td");
+            td.innerText=`${codice}`;
+            tr.appendChild(td);
+            td=document.createElement("td");
+            td.innerText=`${consumo}*${costo}=${TotaleCons.toFixed(2)}`;
+            tr.appendChild(td);
+            td=document.createElement("td");
+            td.innerText=`${canone}`;
+            tr.appendChild(td);
+            td=document.createElement("td")
+            td.innerText=`${TotaleCons}*${iva*100}%=${TotaleIva.toFixed(2)}`;
+            tr.appendChild(td);
+            td=document.createElement("td");
+            td.innerText=`${Totale.toFixed(2)}`;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+
+            document.getElementById("codiceCliente").value=" ";
+            document.getElementById("Consumo").value=" ";
+            }
+        }
+    </script>
+</body>
+</html>
